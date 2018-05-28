@@ -34,11 +34,11 @@ object Parsers {
       |
         ckey.map(ck => SImportContainer(ck))
       |
-        ("(" ~ pad ~ (keyword ~ pad ~ "=>" ~ pad ~ keyword).rep(1, pad ~ "," ~ pad) ~ pad ~ ")").map(m => {
-          m.toMap.map {
+        ("(" ~ pad ~ keyword ~ pad ~ "=>" ~ pad ~ keyword ~ pad ~ ")").rep(1).map(m => {
+          m.map {
             case (k, v) => SImportMap(k, v)
           }
-        }).map(l => SImportGroup(l.toSeq))
+        }).map(l => SImportGroup(l))
       )
     ~ &(end)
   ).map {
