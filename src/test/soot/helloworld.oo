@@ -1,0 +1,7 @@
+arti tf.bug.helloworld
+
+impt soot.io.Pipe
+impt soot.(lang => sl)
+impt tf.bug.ansi
+
+pack main

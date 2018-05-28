@@ -2,7 +2,12 @@ package tf.bug.soot.main
 
 import java.io.File
 
+import fastparse.core.Parsed
 import tf.bug.soot.BuildInfo
+import tf.bug.soot.ast.SProgram
+import tf.bug.soot.lex.parse.Parsers
+
+import scala.io.Source
 
 object Main {
 
@@ -18,6 +23,13 @@ object Main {
     }
     parser.parse(args, Options()) match {
       case Some(o) =>
+        o.files.foreach(f => {
+          val l = Source.fromFile(f, "UTF-8").getLines().mkString("\n")
+          Parsers.prog.parse(l) match {
+            case Parsed.Success(p, _) => println(p)
+            case failure => println(failure.get)
+          }
+        })
       case None =>
     }
   }
